@@ -11,10 +11,13 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueDataCSVFile_ShouldReturnExactCount() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        int totalRecord = 0;
         try {
-            CricketAnalyser cricketAnalyser = new CricketAnalyser();
-           int totalRecord = cricketAnalyser.readData(IPL2019_RUNS_CSV_FILE_PATH);
+            totalRecord = cricketAnalyser.readData(IPL2019_RUNS_CSV_FILE_PATH);
             Assert.assertEquals(101,totalRecord);
-        } catch (IOException e) { }
+        } catch (CricketLeagueException e) {
+            e.printStackTrace();
+        }
     }
 }

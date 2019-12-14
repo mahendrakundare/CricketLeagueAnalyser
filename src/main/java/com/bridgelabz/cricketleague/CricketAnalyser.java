@@ -13,15 +13,18 @@ import java.util.stream.StreamSupport;
 
 public class CricketAnalyser {
 
-    public int readData(String csvFilePath) throws IOException {
+    public int readData(String csvFilePath) throws CricketLeagueException {
+        int count=0;
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<Batsman> csvFileterator = csvBuilder.getCSVFileIterator(reader, Batsman.class);
-            return this.getCount(csvFileterator);
+            Iterator<Batsman> csvFileterator=csvBuilder.getCSVFileIterator(reader, Batsman.class);
+            count = getCount(csvFileterator);
+        } catch (IOException e) {
+            throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.FILE_PROBLEM);
         } catch (CSVBuilderException e) {
-            e.printStackTrace();
+            throw new CricketLeagueException(e.getMessage(),e.type.name());
         }
-        return 0;
+        return count;
     }
 
     private int getCount(Iterator iterator) {
