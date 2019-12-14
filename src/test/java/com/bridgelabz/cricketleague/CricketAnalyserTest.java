@@ -10,6 +10,7 @@ public class CricketAnalyserTest {
     private static final String IPL2019_WICKETES_CSV_FILE_PATH = "/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/IPL2019FactsheetMostWkts.csv";
     private static final String WRONG_FILE = "/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/IPL2019FactsheetMostWktsy.csv";
     private static final String EMPTY_FILE = "/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/wrongfile.csv";
+    private static final String FILE_WITH_DELIMETER_PROBLEM="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/Filewithdelimeter.csv";
 
     @Test
     public void givenLeagueDataCSVFile_ShouldReturnExactCount() {
@@ -34,10 +35,20 @@ public class CricketAnalyserTest {
     }
 
     @Test
-    public void givenLeagueCSVFile_IFFileISEmpty_ShouldThrowException() {
+    public void givenLeagueCSVFile_IfFileISEmpty_ShouldThrowException() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser();
         try {
             cricketAnalyser.readData(EMPTY_FILE);
+        } catch (CricketLeagueException e) {
+            Assert.assertEquals(e.type, CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
+        }
+    }
+
+    @Test
+    public void givenLeagueCSVFile_IfFileHasInvalidDelimeter_ShouldThrowError() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        try {
+            cricketAnalyser.readData(FILE_WITH_DELIMETER_PROBLEM);
         } catch (CricketLeagueException e) {
             Assert.assertEquals(e.type, CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
         }

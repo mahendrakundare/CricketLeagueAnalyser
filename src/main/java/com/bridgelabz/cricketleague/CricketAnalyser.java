@@ -22,7 +22,7 @@ public class CricketAnalyser {
         } catch (IOException e) {
             throw new CricketLeagueException(e.getMessage(),CricketLeagueException.ExceptionType.FILE_PROBLEM);
         } catch (CSVBuilderException e) {
-            throw new CricketLeagueException(e.getMessage(),e.type.name());
+            throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.UNABLE_TO_PARSE);
         }  catch (RuntimeException e) {
             throw new CricketLeagueException(e.getMessage(),
                     CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
