@@ -11,7 +11,7 @@ public class CricketAnalyserTest {
     private static final String WRONG_FILE = "/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/IPL2019FactsheetMostWktsy.csv";
     private static final String EMPTY_FILE = "/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/wrongfile.csv";
     private static final String FILE_WITH_DELIMETER_PROBLEM="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/Filewithdelimeter.csv";
-
+    private static final String INVALID_HEADER_FILE="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/InvalidHeader.csv";
     @Test
     public void givenLeagueDataCSVFile_ShouldReturnExactCount() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser();
@@ -19,9 +19,7 @@ public class CricketAnalyserTest {
         try {
             totalRecord = cricketAnalyser.readData(IPL2019_RUNS_CSV_FILE_PATH);
             Assert.assertEquals(101, totalRecord);
-        } catch (CricketLeagueException e) {
-
-        }
+        } catch (CricketLeagueException e) { }
     }
 
     @Test
@@ -49,6 +47,16 @@ public class CricketAnalyserTest {
         CricketAnalyser cricketAnalyser = new CricketAnalyser();
         try {
             cricketAnalyser.readData(FILE_WITH_DELIMETER_PROBLEM);
+        } catch (CricketLeagueException e) {
+            Assert.assertEquals(e.type, CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
+        }
+    }
+
+    @Test
+    public void givenLeagueCSVFile_IfFileHasInvalidHeader_ShouldThrowError() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        try {
+            cricketAnalyser.readData(INVALID_HEADER_FILE);
         } catch (CricketLeagueException e) {
             Assert.assertEquals(e.type, CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
         }
