@@ -1,45 +1,42 @@
 package com.bridgelabz.cricketleague;
-
 import com.opencsv.bean.CsvBindByName;
-//POS,PLAYER,Mat,Inns,NO,Runs,HS,Avg,BF,SR,100,50,4s,6s
-//POS,PLAYER,Mat,Inns,NO,Runs,HS,Avg,BF,SR,100,50,4s,6s
 public class Batsman {
 
     @CsvBindByName(column ="POS")
-    public String POS;
+    public String pos;
 
     @CsvBindByName(column = "PLAYER")
-    public String PLAYER;
+    public String player;
 
     @CsvBindByName(column = "Mat", required = true)
-    public String Mat;
+    public String mat;
 
     @CsvBindByName(column = "Inns")
-    public String Inns;
+    public String inns;
 
     @CsvBindByName(column = "NO", required = true)
-    public String NO;
+    public String no;
 
     @CsvBindByName(column = "Runs",required = true)
-    public String Runs;
+    public String runs;
 
     @CsvBindByName(column = "HS", required = true)
-    public String HS;
+    public String hs;
 
     @CsvBindByName(column = "Avg", required = true)
-    public String Avg;
+    public String avg;
 
     @CsvBindByName(column = "BF", required = true)
-    public String BF;
+    public String bf;
 
     @CsvBindByName(column = "SR", required = true)
-    public String SR;
+    public String sr;
 
     @CsvBindByName(column = "100" ,required = true)
     public String century;
 
     @CsvBindByName(column = "50",required = true)
-    public String halfCentury;
+    public String halfcentury;
 
     @CsvBindByName(column = "4s", required = true)
     public String fours;
@@ -47,19 +44,22 @@ public class Batsman {
     @CsvBindByName(column = "6s",required = true)
     public String sixes;
 
+    public Batsman() {
+    }
+
     public Batsman(Batsman batsman) {
-        this.POS=batsman.POS;
-        this.PLAYER=batsman.PLAYER;
-        this.Mat=batsman.Mat;
-        this.Inns=batsman.Inns;
-        this.NO=batsman.NO;
-        this.Runs=batsman.Runs;
-        this.HS=batsman.HS;
-        this.Avg=batsman.Avg;
-        this.BF=batsman.BF;
-        this.SR=batsman.SR;
+        this.pos =batsman.pos;
+        this.player =batsman.player;
+        this.mat =batsman.mat;
+        this.inns =batsman.inns;
+        this.no =batsman.no;
+        this.runs =batsman.runs;
+        this.hs =batsman.hs;
+        this.avg =batsman.avg;
+        this.bf =batsman.bf;
+        this.sr =batsman.sr;
         this.century=batsman.century;
-        this.halfCentury=batsman.halfCentury;
+        this.halfcentury =batsman.halfcentury;
         this.fours=batsman.fours;
         this.sixes=batsman.sixes;
     }

@@ -1,5 +1,4 @@
 package com.bridgelabz.cricketleague;
-
 import com.bridgelabz.csvbuilder.CSVBuilderException;
 import com.bridgelabz.csvbuilder.CSVBuilderFactory;
 import com.bridgelabz.csvbuilder.ICSVBuilder;
@@ -10,6 +9,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CricketAnalyser {
@@ -19,24 +19,42 @@ public class CricketAnalyser {
         this.batsmanMap = new HashMap<>();
     }
 
-    public int readData(String csvFilePath) throws CricketLeagueException {
-        int count=0;
+    public Map<String, Batsman> readData(String csvFilePath) throws CricketLeagueException {
+//        Map<String, Batsman> batsmanMap = new HashMap();
+        int count = 0;
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<Batsman> csvFileterator=csvBuilder.getCSVFileIterator(reader, Batsman.class);
+            Iterator<Batsman> csvFileterator = csvBuilder.getCSVFileIterator(reader, Batsman.class);
             Iterable<Batsman> csvIterable = () -> csvFileterator;
-            StreamSupport.stream(csvIterable.spliterator(),false)
+            StreamSupport.stream(csvIterable.spliterator(), false)
                     .map(Batsman.class::cast)
-                    .forEach(iplRuns -> this.batsmanMap.put(iplRuns.PLAYER, iplRuns));
-            return batsmanMap.size();
+                    .forEach(batsmanRuns -> batsmanMap.put(batsmanRuns.player, batsmanRuns));
+            return batsmanMap;
         } catch (IOException e) {
-            throw new CricketLeagueException(e.getMessage(),CricketLeagueException.ExceptionType.FILE_PROBLEM);
+            throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.FILE_PROBLEM);
         } catch (CSVBuilderException e) {
             throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.UNABLE_TO_PARSE);
-        }  catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             throw new CricketLeagueException(e.getMessage(),
                     CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
         }
     }
-}
 
+    public int getNumberOfRecord( String csvFilePath) {
+        int count=0;
+        try {
+            Map<String, Batsman> batsmanMap1 = readData(csvFilePath);
+           return count=batsmanMap1.size();
+        } catch (CricketLeagueException e) { }
+        return count;
+    }
+
+    public String getSortedData(SortingFields.fields sortFields) {
+        Comparator<Batsman>batsmanComparator=new SortingFields().getParameter(sortFields);
+        ArrayList batsmanList=  batsmanMap.values().stream().
+                                    sorted(batsmanComparator).
+                                    collect(Collectors.toCollection(ArrayList::new));
+            String sortedDataJson=new Gson().toJson(batsmanList);
+            return sortedDataJson;
+    }
+}
