@@ -38,35 +38,27 @@ public class Batsman {
     @CsvBindByName(column = "50",required = true)
     public String halfcentury;
 
-    @CsvBindByName(column = "4s", required = true)
-    public String fours;
+    @CsvBindByName(column = "4s")
+    public int fours;
 
-    @CsvBindByName(column = "6s",required = true)
-    public String sixes;
+    @CsvBindByName(column = "6s")
+    public int sixes;
 
-    public Batsman() {
-    }
+    public Batsman() { }
 
     public Batsman(Batsman batsman) {
-//        this.position =batsman.position;
-        this.player =batsman.player;
-//        this.matches =batsman.matches;
-//        this.innings =batsman.innings;
-//        this.notout =batsman.notout;
-//        this.runs =batsman.runs;
-//        this.highScore =batsman.highScore;
-        this.average =batsman.average;
-//        this.ballFaced =batsman.ballFaced;
-        this.strikeRate =batsman.strikeRate;
-//        this.century=batsman.century;
-//        this.halfcentury =batsman.halfcentury;
-//        this.fours=batsman.fours;
-//        this.sixes=batsman.sixes;
+        this.player=batsman.player;
+        this.average=batsman.average;
+        this.strikeRate=batsman.strikeRate;
+        this.fours=batsman.fours;
+        this.sixes=batsman.sixes;
     }
 
-    public Batsman(String player, String average, String strikeRate) {
+    public Batsman(String player, String average, String strikeRate, int fours, int sixes) {
         this.player=player;
         this.average=average;
         this.strikeRate=strikeRate;
+        this.fours=fours;
+        this.sixes=sixes;
     }
 }

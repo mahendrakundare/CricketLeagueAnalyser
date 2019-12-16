@@ -80,4 +80,15 @@ public class CricketAnalyserTest {
             Assert.assertEquals("Ishant Sharma",batsmen[0].player);
         } catch (CricketLeagueException e) { }
     }
+
+    @Test
+    public void givenLeagueCSVFile_WhenSortedonFoursAndSixesShouldReturnSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        try {
+            cricketAnalyser.readData(SAMPLE_FILE);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.BOUNDARIES);
+            BatsmanDAO[] batsman = new Gson().fromJson(sortedData, BatsmanDAO[].class);
+            Assert.assertEquals("Chris Gayle",batsman[0].player);
+        } catch (CricketLeagueException e) { }
+    }
 }
