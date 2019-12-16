@@ -63,4 +63,10 @@ public class Batsman {
 //        this.fours=batsman.fours;
 //        this.sixes=batsman.sixes;
     }
+
+    public Batsman(String player, String average, String strikeRate) {
+        this.player=player;
+        this.average=average;
+        this.strikeRate=strikeRate;
+    }
 }

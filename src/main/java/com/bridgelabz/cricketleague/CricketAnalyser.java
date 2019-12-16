@@ -14,7 +14,6 @@ import java.util.stream.StreamSupport;
 
 public class CricketAnalyser {
     Map<String, BatsmanDAO> batsmanMap;
-
     public CricketAnalyser() {
         this.batsmanMap = new HashMap<>();
     }
@@ -51,6 +50,7 @@ public class CricketAnalyser {
         Comparator<BatsmanDAO>batsmanComparator=new SortingFields().getParameter(sortFields);
         ArrayList batsmanList=  batsmanMap.values().stream().
                                     sorted(batsmanComparator).
+                                    map(batsmanDAO -> batsmanDAO.getBatsmanDTO()).
                                     collect(Collectors.toCollection(ArrayList::new));
             String sortedDataJson=new Gson().toJson(batsmanList);
             return sortedDataJson;
