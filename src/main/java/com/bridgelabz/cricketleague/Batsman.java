@@ -6,44 +6,61 @@ import com.opencsv.bean.CsvBindByName;
 public class Batsman {
 
     @CsvBindByName(column ="POS")
-    private String POS;
+    public String POS;
 
     @CsvBindByName(column = "PLAYER")
-    private String PLAYER;
+    public String PLAYER;
 
     @CsvBindByName(column = "Mat", required = true)
-    private String Mat;
+    public String Mat;
 
     @CsvBindByName(column = "Inns")
-    private String Inns;
+    public String Inns;
 
     @CsvBindByName(column = "NO", required = true)
-    private String NO;
+    public String NO;
 
     @CsvBindByName(column = "Runs",required = true)
-    private String Runs;
+    public String Runs;
 
     @CsvBindByName(column = "HS", required = true)
-    private String HS;
+    public String HS;
 
     @CsvBindByName(column = "Avg", required = true)
-    private String Avg;
+    public String Avg;
 
     @CsvBindByName(column = "BF", required = true)
-    private String BF;
+    public String BF;
 
     @CsvBindByName(column = "SR", required = true)
-    private String SR;
+    public String SR;
 
     @CsvBindByName(column = "100" ,required = true)
-    private String century;
+    public String century;
 
     @CsvBindByName(column = "50",required = true)
-    private String halfCentury;
+    public String halfCentury;
 
     @CsvBindByName(column = "4s", required = true)
-    private String fours;
+    public String fours;
 
     @CsvBindByName(column = "6s",required = true)
-    private String sixes;
+    public String sixes;
+
+    public Batsman(Batsman batsman) {
+        this.POS=batsman.POS;
+        this.PLAYER=batsman.PLAYER;
+        this.Mat=batsman.Mat;
+        this.Inns=batsman.Inns;
+        this.NO=batsman.NO;
+        this.Runs=batsman.Runs;
+        this.HS=batsman.HS;
+        this.Avg=batsman.Avg;
+        this.BF=batsman.BF;
+        this.SR=batsman.SR;
+        this.century=batsman.century;
+        this.halfCentury=batsman.halfCentury;
+        this.fours=batsman.fours;
+        this.sixes=batsman.sixes;
+    }
 }

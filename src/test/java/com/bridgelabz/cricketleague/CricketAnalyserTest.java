@@ -1,5 +1,6 @@
 package com.bridgelabz.cricketleague;
 
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ public class CricketAnalyserTest {
     private static final String EMPTY_FILE = "/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/wrongfile.csv";
     private static final String FILE_WITH_DELIMETER_PROBLEM="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/Filewithdelimeter.csv";
     private static final String INVALID_HEADER_FILE="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/InvalidHeader.csv";
+    private static final String SAMPLE_FILE="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/SampleIPLData.csv";
     @Test
     public void givenLeagueDataCSVFile_ShouldReturnExactCount() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser();
@@ -61,4 +63,5 @@ public class CricketAnalyserTest {
             Assert.assertEquals(e.type, CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
         }
     }
+
 }
