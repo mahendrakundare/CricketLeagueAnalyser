@@ -76,8 +76,8 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKERATE);
-            Batsman[] batsmen = new Gson().fromJson(sortedData, Batsman[].class);
-            Assert.assertEquals("Ishant Sharma",batsmen[0].player);
+            BatsmanDAO[] batsmen = new Gson().fromJson(sortedData, BatsmanDAO[].class);
+            Assert.assertEquals("Ishant Sharma ",batsmen[0].player);
         } catch (CricketLeagueException e) { }
     }
 }

@@ -13,22 +13,20 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CricketAnalyser {
-    Map<String, Batsman> batsmanMap;
+    Map<String, BatsmanDAO> batsmanMap;
 
     public CricketAnalyser() {
         this.batsmanMap = new HashMap<>();
     }
 
-    public Map<String, Batsman> readData(String csvFilePath) throws CricketLeagueException {
-//        Map<String, Batsman> batsmanMap = new HashMap();
-        int count = 0;
+    public Map readData(String csvFilePath) throws CricketLeagueException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<Batsman> csvFileterator = csvBuilder.getCSVFileIterator(reader, Batsman.class);
             Iterable<Batsman> csvIterable = () -> csvFileterator;
             StreamSupport.stream(csvIterable.spliterator(), false)
                     .map(Batsman.class::cast)
-                    .forEach(batsmanRuns -> batsmanMap.put(batsmanRuns.player, batsmanRuns));
+                    .forEach(batsmanRuns -> batsmanMap.put(batsmanRuns.player, new BatsmanDAO(batsmanRuns)));
             return batsmanMap;
         } catch (IOException e) {
             throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.FILE_PROBLEM);
@@ -43,14 +41,14 @@ public class CricketAnalyser {
     public int getNumberOfRecord( String csvFilePath) {
         int count=0;
         try {
-            Map<String, Batsman> batsmanMap1 = readData(csvFilePath);
+            Map<String, BatsmanDAO> batsmanMap1 = readData(csvFilePath);
            return count=batsmanMap1.size();
         } catch (CricketLeagueException e) { }
         return count;
     }
 
     public String getSortedData(SortingFields.fields sortFields) {
-        Comparator<Batsman>batsmanComparator=new SortingFields().getParameter(sortFields);
+        Comparator<BatsmanDAO>batsmanComparator=new SortingFields().getParameter(sortFields);
         ArrayList batsmanList=  batsmanMap.values().stream().
                                     sorted(batsmanComparator).
                                     collect(Collectors.toCollection(ArrayList::new));

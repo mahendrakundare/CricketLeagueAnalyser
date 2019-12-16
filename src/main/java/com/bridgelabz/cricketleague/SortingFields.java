@@ -10,11 +10,11 @@ public class SortingFields {
     enum fields { AVERAGE,STRIKERATE}
 
     public Comparator getParameter(SortingFields.fields parameter) {
-        Comparator<Batsman> avgComparator = Comparator.comparing(batsmanRun -> batsmanRun.avg, Comparator.reverseOrder());
-        Comparator<Batsman> strikeRateComparator = Comparator.comparing(batsman -> batsman.sr,Comparator.reverseOrder());
+        Comparator<BatsmanDAO> avgComparator = Comparator.comparing(batsmanRun -> batsmanRun.average, Comparator.reverseOrder());
+        Comparator<BatsmanDAO> strikeRateComparator = Comparator.comparing(batsman -> batsman.strikeRate,Comparator.reverseOrder());
         sortByFields.put(fields.AVERAGE, avgComparator);
         sortByFields.put(fields.STRIKERATE,strikeRateComparator);
-        Comparator<Batsman> comparator = sortByFields.get(parameter);
+        Comparator<BatsmanDAO> comparator = sortByFields.get(parameter);
         return comparator;
     }
 }

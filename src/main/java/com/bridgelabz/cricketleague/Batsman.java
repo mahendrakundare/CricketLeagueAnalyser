@@ -3,34 +3,34 @@ import com.opencsv.bean.CsvBindByName;
 public class Batsman {
 
     @CsvBindByName(column ="POS")
-    public String pos;
+    public String position;
 
     @CsvBindByName(column = "PLAYER")
     public String player;
 
     @CsvBindByName(column = "Mat", required = true)
-    public String mat;
+    public String matches;
 
     @CsvBindByName(column = "Inns")
-    public String inns;
+    public String innings;
 
     @CsvBindByName(column = "NO", required = true)
-    public String no;
+    public String notout;
 
     @CsvBindByName(column = "Runs",required = true)
     public String runs;
 
     @CsvBindByName(column = "HS", required = true)
-    public String hs;
+    public String highScore;
 
     @CsvBindByName(column = "Avg", required = true)
-    public String avg;
+    public String average;
 
     @CsvBindByName(column = "BF", required = true)
-    public String bf;
+    public String ballFaced;
 
     @CsvBindByName(column = "SR", required = true)
-    public String sr;
+    public String strikeRate;
 
     @CsvBindByName(column = "100" ,required = true)
     public String century;
@@ -48,19 +48,19 @@ public class Batsman {
     }
 
     public Batsman(Batsman batsman) {
-        this.pos =batsman.pos;
+//        this.position =batsman.position;
         this.player =batsman.player;
-        this.mat =batsman.mat;
-        this.inns =batsman.inns;
-        this.no =batsman.no;
-        this.runs =batsman.runs;
-        this.hs =batsman.hs;
-        this.avg =batsman.avg;
-        this.bf =batsman.bf;
-        this.sr =batsman.sr;
-        this.century=batsman.century;
-        this.halfcentury =batsman.halfcentury;
-        this.fours=batsman.fours;
-        this.sixes=batsman.sixes;
+//        this.matches =batsman.matches;
+//        this.innings =batsman.innings;
+//        this.notout =batsman.notout;
+//        this.runs =batsman.runs;
+//        this.highScore =batsman.highScore;
+        this.average =batsman.average;
+//        this.ballFaced =batsman.ballFaced;
+        this.strikeRate =batsman.strikeRate;
+//        this.century=batsman.century;
+//        this.halfcentury =batsman.halfcentury;
+//        this.fours=batsman.fours;
+//        this.sixes=batsman.sixes;
     }
 }
