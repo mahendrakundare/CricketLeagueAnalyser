@@ -7,11 +7,13 @@ public class SortingFields {
 
     public static Map<fields, Comparator> sortByFields = new HashMap<>();
 
-    enum fields { AVERAGE,}
+    enum fields { AVERAGE,STRIKERATE}
 
     public Comparator getParameter(SortingFields.fields parameter) {
         Comparator<Batsman> avgComparator = Comparator.comparing(batsmanRun -> batsmanRun.avg, Comparator.reverseOrder());
+        Comparator<Batsman> strikeRateComparator = Comparator.comparing(batsman -> batsman.sr,Comparator.reverseOrder());
         sortByFields.put(fields.AVERAGE, avgComparator);
+        sortByFields.put(fields.STRIKERATE,strikeRateComparator);
         Comparator<Batsman> comparator = sortByFields.get(parameter);
         return comparator;
     }

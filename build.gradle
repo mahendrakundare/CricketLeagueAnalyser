@@ -13,4 +13,6 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile "com.google.code.gson:gson:2.2.+"
+    compile(files("/home/admin1/IdeaProjects/CSVReader/out/artifacts/CSVReader_jar/CSVReader.jar"))
 }
