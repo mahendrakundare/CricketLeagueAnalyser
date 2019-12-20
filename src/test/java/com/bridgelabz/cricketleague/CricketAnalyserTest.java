@@ -111,7 +111,20 @@ public class CricketAnalyserTest {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.AVERAGE, SortingFields.fields.STRIKERATE);
             BatsmanDAO[] batsmanDAOS= new Gson().fromJson(sortedData,BatsmanDAO[].class);
+            Assert.assertEquals("MS Dhoni",batsmanDAOS[0].player);
+        } catch (CricketLeagueException e) { }
+    }
+
+    @Test
+    public void givenLeagueCSVFile_WhenSortedOnMaxRunWithBestAverage_ShouldReturnSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        try {
+            cricketAnalyser.readData(SAMPLE_FILE);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.RUNS, SortingFields.fields.AVERAGE);
+            BatsmanDAO[] batsmanDAOS = new Gson().fromJson(sortedData, BatsmanDAO[].class);
             Assert.assertEquals("David Warner",batsmanDAOS[0].player);
         } catch (CricketLeagueException e) { }
     }
+
+
 }

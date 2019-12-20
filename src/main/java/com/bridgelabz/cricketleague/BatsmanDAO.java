@@ -7,6 +7,7 @@ public class BatsmanDAO {
     public int fours;
     public int sixes;
     public int ballFaced;
+    public int runs;
 
     public BatsmanDAO(Batsman batsmanRuns) {
         this.player=batsmanRuns.player;
@@ -15,9 +16,10 @@ public class BatsmanDAO {
         this.sixes=batsmanRuns.sixes;
         this.fours=batsmanRuns.fours;
         this.ballFaced=batsmanRuns.ballFaced;
+        this.runs=batsmanRuns.runs;
     }
 
     public Object getBatsmanDTO() {
-        return new Batsman(player,average,strikeRate,sixes,fours,ballFaced);
+        return new Batsman(player,average,strikeRate,sixes,fours,ballFaced,runs);
     }
 }

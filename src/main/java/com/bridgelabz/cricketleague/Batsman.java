@@ -18,7 +18,7 @@ public class Batsman {
     public String notout;
 
     @CsvBindByName(column = "Runs")
-    public String runs;
+    public int runs;
 
     @CsvBindByName(column = "HS")
     public String highScore;
@@ -53,14 +53,16 @@ public class Batsman {
         this.fours=batsman.fours;
         this.sixes=batsman.sixes;
         this.ballFaced=batsman.ballFaced;
+        this.runs=batsman.runs;
     }
 
-    public Batsman(String player, double average, double strikeRate, int fours, int sixes, int ballFaced) {
+    public Batsman(String player, double average, double strikeRate, int fours, int sixes, int ballFaced,int runs) {
         this.player=player;
         this.average=average;
         this.strikeRate=strikeRate;
         this.fours=fours;
         this.sixes=sixes;
         this.ballFaced=ballFaced;
+        this.runs=runs;
     }
 }
