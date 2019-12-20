@@ -14,6 +14,7 @@ import java.util.stream.StreamSupport;
 
 public class CricketAnalyser {
     Map<String, BatsmanDAO> batsmanMap;
+
     public CricketAnalyser() {
         this.batsmanMap = new HashMap<>();
     }
@@ -41,18 +42,18 @@ public class CricketAnalyser {
         int count=0;
         try {
             Map<String, BatsmanDAO> batsmanMap1 = readData(csvFilePath);
-           return count=batsmanMap1.size();
+            return count=batsmanMap1.size();
         } catch (CricketLeagueException e) { }
         return count;
     }
 
-    public String getSortedData(SortingFields.fields sortFields) {
-        Comparator<BatsmanDAO>batsmanComparator=new SortingFields().getParameter(sortFields);
+    public String getSortedData(SortingFields.fields sortField) {
+        Comparator<BatsmanDAO>batsmanComparator=new SortingFields().getParameter(sortField);
         ArrayList batsmanList=  batsmanMap.values().stream().
-                                    sorted(batsmanComparator).
-                                    map(batsmanDAO -> batsmanDAO.getBatsmanDTO()).
-                                    collect(Collectors.toCollection(ArrayList::new));
-            String sortedDataJson=new Gson().toJson(batsmanList);
-            return sortedDataJson;
+                sorted(batsmanComparator).
+                map(batsmanDAO -> batsmanDAO.getBatsmanDTO()).
+                collect(Collectors.toCollection(ArrayList::new));
+        String sortedDataJson=new Gson().toJson(batsmanList);
+        return sortedDataJson;
     }
 }

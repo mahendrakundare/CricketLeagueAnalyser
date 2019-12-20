@@ -8,34 +8,34 @@ public class Batsman {
     @CsvBindByName(column = "PLAYER")
     public String player;
 
-    @CsvBindByName(column = "Mat", required = true)
+    @CsvBindByName(column = "Mat")
     public String matches;
 
     @CsvBindByName(column = "Inns")
     public String innings;
 
-    @CsvBindByName(column = "NO", required = true)
+    @CsvBindByName(column = "NO")
     public String notout;
 
-    @CsvBindByName(column = "Runs",required = true)
+    @CsvBindByName(column = "Runs")
     public String runs;
 
-    @CsvBindByName(column = "HS", required = true)
+    @CsvBindByName(column = "HS")
     public String highScore;
 
-    @CsvBindByName(column = "Avg", required = true)
-    public String average;
+    @CsvBindByName(column = "Avg")
+    public double average;
 
-    @CsvBindByName(column = "BF", required = true)
-    public String ballFaced;
+    @CsvBindByName(column = "BF")
+    public int ballFaced;
 
-    @CsvBindByName(column = "SR", required = true)
-    public String strikeRate;
+    @CsvBindByName(column = "SR")
+    public double strikeRate;
 
-    @CsvBindByName(column = "100" ,required = true)
+    @CsvBindByName(column = "100" )
     public String century;
 
-    @CsvBindByName(column = "50",required = true)
+    @CsvBindByName(column = "50")
     public String halfcentury;
 
     @CsvBindByName(column = "4s")
@@ -52,13 +52,15 @@ public class Batsman {
         this.strikeRate=batsman.strikeRate;
         this.fours=batsman.fours;
         this.sixes=batsman.sixes;
+        this.ballFaced=batsman.ballFaced;
     }
 
-    public Batsman(String player, String average, String strikeRate, int fours, int sixes) {
+    public Batsman(String player, double average, double strikeRate, int fours, int sixes, int ballFaced) {
         this.player=player;
         this.average=average;
         this.strikeRate=strikeRate;
         this.fours=fours;
         this.sixes=sixes;
+        this.ballFaced=ballFaced;
     }
 }

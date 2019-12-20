@@ -87,8 +87,19 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.BOUNDARIES);
-            BatsmanDAO[] batsman = new Gson().fromJson(sortedData, BatsmanDAO[].class);
+            Batsman[] batsman = new Gson().fromJson(sortedData, Batsman[].class);
             Assert.assertEquals("Chris Gayle",batsman[0].player);
+        } catch (CricketLeagueException e) { }
+    }
+
+    @Test
+    public void givenLeagueCSVFile_WhenSortedOnFoursAndSixesBasedAlongWithStrike_ShouldRetrunSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        try {
+            cricketAnalyser.readData(SAMPLE_FILE);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKE_WITH_BOUNDARY);
+            BatsmanDAO[] batsman = new Gson().fromJson(sortedData, BatsmanDAO[].class);
+            Assert.assertEquals("David Warner",batsman[0].player);
         } catch (CricketLeagueException e) { }
     }
 }
