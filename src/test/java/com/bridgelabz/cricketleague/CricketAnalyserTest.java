@@ -13,10 +13,11 @@ public class CricketAnalyserTest {
     private static final String SAMPLE_FILE="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/SampleIPLData.csv";
 
     @Test
-    public void givenLeagueDataCSVFile_ShouldReturnExactCount() {
+    public void givenLeagueDataCSVFile_ShouldReturnExactCount() throws CricketLeagueException {
         CricketAnalyser cricketAnalyser = new CricketAnalyser();
-        int result=cricketAnalyser.getNumberOfRecord(IPL2019_RUNS_CSV_FILE_PATH);
-        Assert.assertEquals(100,result);
+        cricketAnalyser.readData(SAMPLE_FILE);
+        int result=cricketAnalyser.getNumberOfRecord();
+        Assert.assertEquals(10,result);
     }
 
     @Test
@@ -100,6 +101,17 @@ public class CricketAnalyserTest {
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKE_WITH_BOUNDARY);
             BatsmanDAO[] batsman = new Gson().fromJson(sortedData, BatsmanDAO[].class);
             Assert.assertEquals("David Warner",batsman[0].player);
+        } catch (CricketLeagueException e) { }
+    }
+
+    @Test
+    public void givenLeagueCSVFile_WhenSortedOnAverageWithBestStrikingRate_ShouldReturnSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        try {
+            cricketAnalyser.readData(SAMPLE_FILE);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.AVERAGE, SortingFields.fields.STRIKERATE);
+            BatsmanDAO[] batsmanDAOS= new Gson().fromJson(sortedData,BatsmanDAO[].class);
+            Assert.assertEquals("David Warner",batsmanDAOS[0].player);
         } catch (CricketLeagueException e) { }
     }
 }

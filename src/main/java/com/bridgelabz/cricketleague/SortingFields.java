@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class SortingFields {
 
-    public static Map<fields, Comparator> sortByFields = new HashMap<>();
+    static Map<fields, Comparator> sortByFields = new HashMap<>();
 
-    enum fields { AVERAGE,STRIKERATE,BOUNDARIES,STRIKE_WITH_BOUNDARY}
+    enum fields { AVERAGE,STRIKERATE,BOUNDARIES, AVERAGE_WITH_STRIKE, STRIKE_WITH_BOUNDARY}
 
-    public Comparator getParameter(SortingFields.fields parameter) {
+    public static Comparator getParameter(SortingFields.fields parameter) {
         Comparator<BatsmanDAO> avgComparator = Comparator.comparing(batsmanRun -> batsmanRun.average, Comparator.reverseOrder());
         Comparator<BatsmanDAO> strikeRateComparator = Comparator.comparing(batsman -> batsman.strikeRate,Comparator.reverseOrder());
         Comparator<BatsmanDAO> boundariesComparator = Comparator.comparing(batsman -> batsman.fours*4+batsman.sixes*6,Comparator.reverseOrder());

@@ -38,20 +38,20 @@ public class CricketAnalyser {
         }
     }
 
-    public int getNumberOfRecord( String csvFilePath) {
-        int count=0;
-        try {
-            Map<String, BatsmanDAO> batsmanMap1 = readData(csvFilePath);
-            return count=batsmanMap1.size();
-        } catch (CricketLeagueException e) { }
-        return count;
+    public int getNumberOfRecord() {
+        int count;
+        return count = batsmanMap.size();
     }
 
-    public String getSortedData(SortingFields.fields sortField) {
-        Comparator<BatsmanDAO>batsmanComparator=new SortingFields().getParameter(sortField);
+    public String getSortedData(SortingFields.fields... sortField) {
+        Comparator<BatsmanDAO>batsmanComparator=null;
+        if (sortField.length==2)
+            batsmanComparator = SortingFields.getParameter(sortField[0]).thenComparing(SortingFields.getParameter(sortField[1]));
+        else {
+            batsmanComparator=SortingFields.getParameter(sortField[0]);
+        }
         ArrayList batsmanList=  batsmanMap.values().stream().
                 sorted(batsmanComparator).
-                map(batsmanDAO -> batsmanDAO.getBatsmanDTO()).
                 collect(Collectors.toCollection(ArrayList::new));
         String sortedDataJson=new Gson().toJson(batsmanList);
         return sortedDataJson;
