@@ -38,6 +38,8 @@ public class CricketAnalyser {
         }
     }
 
+
+
     public int getNumberOfRecord() {
         int count;
         return count = batsmanMap.size();
@@ -56,5 +58,25 @@ public class CricketAnalyser {
                 collect(Collectors.toCollection(ArrayList::new));
         String sortedDataJson=new Gson().toJson(batsmanList);
         return sortedDataJson;
+    }
+
+    public Map readBowlingFile(String csvFilePath ) throws CricketLeagueException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            Iterator<Bowler> csvFileterator = csvBuilder.getCSVFileIterator(reader, Bowler.class);
+            Iterable<Bowler> csvIterable = () -> csvFileterator;
+            StreamSupport.stream(csvIterable.spliterator(), false)
+                    .map(Bowler.class::cast)
+                    .forEach(bowler -> batsmanMap.put(bowler.player, new BatsmanDAO(bowler)));
+            return batsmanMap;
+        } catch (IOException e) {
+            throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.FILE_PROBLEM);
+        } catch (CSVBuilderException e) {
+            throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.UNABLE_TO_PARSE);
+        } catch (RuntimeException e) {
+            throw new CricketLeagueException(e.getMessage(),
+                    CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
+        }
+
     }
 }
