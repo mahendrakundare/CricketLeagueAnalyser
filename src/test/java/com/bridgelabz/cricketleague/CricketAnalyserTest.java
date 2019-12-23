@@ -10,7 +10,7 @@ public class CricketAnalyserTest {
     private static final String EMPTY_FILE = "/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/wrongfile.csv";
     private static final String FILE_WITH_DELIMETER_PROBLEM="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/Filewithdelimeter.csv";
     private static final String INVALID_HEADER_FILE="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/InvalidHeader.csv";
-    private static final String SAMPLE_FILE="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/SampleIPLData.csv";
+    private static final String SAMPLE_BATSMAN_FILE ="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/SampleIPLData.csv";
     private static final String SAMPLE_BOWLER_FILE="/home/admin1/IdeaProjects/CricketLeagueAnalyser/src/test/resources/sampleBowlerFile.csv";
 
     @Test
@@ -66,7 +66,7 @@ public class CricketAnalyserTest {
     public void givenLeagueCSVFile_WhenSortedOnAverage_ShouldReturnSortedResult() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
-            cricketAnalyser.readData(SAMPLE_FILE);
+            cricketAnalyser.readData(SAMPLE_BATSMAN_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.AVERAGE);
             Batsman[] batsmen = new Gson().fromJson(sortedData, Batsman[].class);
             Assert.assertEquals("MS Dhoni",batsmen[0].player);
@@ -77,7 +77,7 @@ public class CricketAnalyserTest {
     public void givenLeagueCSVFile_WhenSortedOnStrikeRate_ShouldReturnSortedResult() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
-            cricketAnalyser.readData(SAMPLE_FILE);
+            cricketAnalyser.readData(SAMPLE_BATSMAN_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKERATE);
             CricketLeagueDAO[] batsmen = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
             Assert.assertEquals("Ishant Sharma",batsmen[0].player);
@@ -88,7 +88,7 @@ public class CricketAnalyserTest {
     public void givenLeagueCSVFile_WhenSortedonFoursAndSixesShouldReturnSortedResult() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
-            cricketAnalyser.readData(SAMPLE_FILE);
+            cricketAnalyser.readData(SAMPLE_BATSMAN_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.BOUNDARIES);
             Batsman[] batsman = new Gson().fromJson(sortedData, Batsman[].class);
             Assert.assertEquals("Chris Gayle",batsman[0].player);
@@ -99,7 +99,7 @@ public class CricketAnalyserTest {
     public void givenLeagueCSVFile_WhenSortedOnFoursAndSixesBasedAlongWithStrike_ShouldRetrunSortedResult() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
-            cricketAnalyser.readData(SAMPLE_FILE);
+            cricketAnalyser.readData(SAMPLE_BATSMAN_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKE_WITH_BOUNDARY);
             CricketLeagueDAO[] batsman = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
             Assert.assertEquals("David Warner",batsman[0].player);
@@ -110,7 +110,7 @@ public class CricketAnalyserTest {
     public void givenLeagueCSVFile_WhenSortedOnAverageWithBestStrikingRate_ShouldReturnSortedResult() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
-            cricketAnalyser.readData(SAMPLE_FILE);
+            cricketAnalyser.readData(SAMPLE_BATSMAN_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.AVERAGE, SortingFields.fields.STRIKERATE);
             CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
             Assert.assertEquals("MS Dhoni", cricketLeagueDAOS[0].player);
@@ -121,7 +121,7 @@ public class CricketAnalyserTest {
     public void givenLeagueCSVFile_WhenSortedOnMaxRunWithBestAverage_ShouldReturnSortedResult() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
-            cricketAnalyser.readData(SAMPLE_FILE);
+            cricketAnalyser.readData(SAMPLE_BATSMAN_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.RUNS, SortingFields.fields.AVERAGE);
             CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
             Assert.assertEquals("David Warner", cricketLeagueDAOS[0].player);
@@ -174,7 +174,7 @@ public class CricketAnalyserTest {
             cricketAnalyser.readData(SAMPLE_BOWLER_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKERATE);
             Bowler[] bowlers = new Gson().fromJson(sortedData, Bowler[].class);
-            Assert.assertEquals("Shreyas Gopal",bowlers[0].player);
+            Assert.assertEquals("Khaleel Ahmed",bowlers[8].player);
         } catch (CricketLeagueException e) { }
     }
 
@@ -186,6 +186,17 @@ public class CricketAnalyserTest {
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.ECONOMY);
             CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
             Assert.assertEquals("Jasprit Bumrah", cricketLeagueDAOS[0].player);
+        } catch (CricketLeagueException e) { }
+    }
+
+    @Test
+    public void givenLeagueBowlerCSVFile_WhenSortedOn5WicketsAnd4Wickets_ShouldReturnSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BOWLING);
+        try {
+            cricketAnalyser.readData(IPL2019_WICKETES_CSV_FILE_PATH);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKERATE_WITH_FIVE_AND_FOUR_WICKETS);
+            CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
+            Assert.assertEquals("Kagiso Rabada",cricketLeagueDAOS[0].player);
         } catch (CricketLeagueException e) { }
     }
 }

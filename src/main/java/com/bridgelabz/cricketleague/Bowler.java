@@ -44,11 +44,7 @@ public class Bowler {
     @CsvBindByName(column = "5w")
     public int fiveWickets;
 
-    @CsvBindByName(column = "blank")
-    public int blank;
-
     public Bowler() { }
-
 
     public Bowler(Bowler bowler) {
         this.player= bowler.player;
@@ -56,9 +52,13 @@ public class Bowler {
         this.average=bowler.average;
     }
 
-    public Bowler(String player, int wickets,double average) {
+    public Bowler(String player, int wickets, double average, double economy, int fiveWickets, int fourWickets, double strikeRate) {
         this.player = player;
         this.wickets = wickets;
         this.average=average;
+        this.economy=economy;
+        this.fiveWickets=fiveWickets;
+        this.fourWickets=fourWickets;
+        this.strikeRate = strikeRate;
     }
 }

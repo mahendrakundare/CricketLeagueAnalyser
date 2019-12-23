@@ -35,7 +35,7 @@ public class CricketAnalyser {
         }
         ArrayList batsmanList=  batsmanMap.values().stream().
                 sorted(batsmanComparator).
-                map(batsmanDAO -> batsmanDAO.getBatsmanDTO()).
+                map(batsmanDAO -> batsmanDAO.getBatsmanDTO(category)).
                 collect(Collectors.toCollection(ArrayList::new));
         String sortedDataJson=new Gson().toJson(batsmanList);
         return sortedDataJson;
