@@ -9,6 +9,7 @@ public class BatsmanDAO {
     public int ballFaced;
     public int runs;
     public int wickets;
+    public double economy;
 
     public BatsmanDAO(Batsman batsmanRuns) {
         this.player=batsmanRuns.player;
@@ -24,6 +25,7 @@ public class BatsmanDAO {
         this.player= bowler.player;
         this.wickets=bowler.wickets;
         this.average=bowler.average;
+        this.economy = bowler.economy;
     }
 
     public Object getBatsmanDTO() {

@@ -177,4 +177,15 @@ public class CricketAnalyserTest {
             Assert.assertEquals("Shreyas Gopal",bowlers[0].player);
         } catch (CricketLeagueException e) { }
     }
+
+    @Test
+    public void givenLeagueBowlerCSVFile_WhenSortedOnEconomy_ShouldReturnSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BOWLING);
+        try {
+            cricketAnalyser.readData(SAMPLE_BOWLER_FILE);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.ECONOMY);
+            BatsmanDAO[] batsmanDAOS = new Gson().fromJson(sortedData, BatsmanDAO[].class);
+            Assert.assertEquals("Jasprit Bumrah",batsmanDAOS[0].player);
+        } catch (CricketLeagueException e) { }
+    }
 }
