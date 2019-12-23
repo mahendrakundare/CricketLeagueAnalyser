@@ -79,7 +79,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKERATE);
-            BatsmanDAO[] batsmen = new Gson().fromJson(sortedData, BatsmanDAO[].class);
+            CricketLeagueDAO[] batsmen = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
             Assert.assertEquals("Ishant Sharma",batsmen[0].player);
         } catch (CricketLeagueException e) { }
     }
@@ -101,7 +101,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKE_WITH_BOUNDARY);
-            BatsmanDAO[] batsman = new Gson().fromJson(sortedData, BatsmanDAO[].class);
+            CricketLeagueDAO[] batsman = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
             Assert.assertEquals("David Warner",batsman[0].player);
         } catch (CricketLeagueException e) { }
     }
@@ -112,8 +112,8 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.AVERAGE, SortingFields.fields.STRIKERATE);
-            BatsmanDAO[] batsmanDAOS= new Gson().fromJson(sortedData,BatsmanDAO[].class);
-            Assert.assertEquals("MS Dhoni",batsmanDAOS[0].player);
+            CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
+            Assert.assertEquals("MS Dhoni", cricketLeagueDAOS[0].player);
         } catch (CricketLeagueException e) { }
     }
 
@@ -123,8 +123,8 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.RUNS, SortingFields.fields.AVERAGE);
-            BatsmanDAO[] batsmanDAOS = new Gson().fromJson(sortedData, BatsmanDAO[].class);
-            Assert.assertEquals("David Warner",batsmanDAOS[0].player);
+            CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
+            Assert.assertEquals("David Warner", cricketLeagueDAOS[0].player);
         } catch (CricketLeagueException e) { }
     }
 
@@ -184,8 +184,8 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.readData(SAMPLE_BOWLER_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.ECONOMY);
-            BatsmanDAO[] batsmanDAOS = new Gson().fromJson(sortedData, BatsmanDAO[].class);
-            Assert.assertEquals("Jasprit Bumrah",batsmanDAOS[0].player);
+            CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
+            Assert.assertEquals("Jasprit Bumrah", cricketLeagueDAOS[0].player);
         } catch (CricketLeagueException e) { }
     }
 }

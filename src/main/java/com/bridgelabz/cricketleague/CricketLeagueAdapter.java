@@ -14,10 +14,10 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 public abstract class CricketLeagueAdapter {
-    public abstract Map<String, BatsmanDAO> readData(String... csvFilePath) throws CricketLeagueException;
+    public abstract Map<String, CricketLeagueDAO> readData(String... csvFilePath) throws CricketLeagueException;
 
     public <E> Map readData(Class<E> censusCSVClass, String... csvFilePath) throws CricketLeagueException {
-        Map<String, BatsmanDAO> statisticsMap = new HashMap();
+        Map<String, CricketLeagueDAO> statisticsMap = new HashMap();
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath[0]))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<E> csvFileIterator = csvBuilder.getCSVFileIterator(reader, censusCSVClass);
@@ -25,11 +25,11 @@ public abstract class CricketLeagueAdapter {
             if (censusCSVClass.getName().equals("com.bridgelabz.cricketleague.Batsman")) {
                 StreamSupport.stream(csvIterable.spliterator(), false).
                         map(Batsman.class::cast).
-                        forEach(batsman -> statisticsMap.put(batsman.player, new BatsmanDAO(batsman)));
+                        forEach(batsman -> statisticsMap.put(batsman.player, new CricketLeagueDAO(batsman)));
             } else if (censusCSVClass.getName().equals("com.bridgelabz.cricketleague.Bowler")) {
                 StreamSupport.stream(csvIterable.spliterator(), false).
                         map(Bowler.class::cast).
-                        forEach(bowler -> statisticsMap.put(bowler.player, new BatsmanDAO(bowler)));
+                        forEach(bowler -> statisticsMap.put(bowler.player, new CricketLeagueDAO(bowler)));
             }
             return statisticsMap;
         } catch (IOException e) {

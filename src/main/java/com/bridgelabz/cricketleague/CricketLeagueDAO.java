@@ -1,6 +1,6 @@
 package com.bridgelabz.cricketleague;
 
-public class BatsmanDAO {
+public class CricketLeagueDAO {
     public String player;
     public double average;
     public double strikeRate;
@@ -11,7 +11,7 @@ public class BatsmanDAO {
     public int wickets;
     public double economy;
 
-    public BatsmanDAO(Batsman batsmanRuns) {
+    public CricketLeagueDAO(Batsman batsmanRuns) {
         this.player=batsmanRuns.player;
         this.average= batsmanRuns.average;
         this.strikeRate=batsmanRuns.strikeRate;
@@ -21,7 +21,7 @@ public class BatsmanDAO {
         this.runs=batsmanRuns.runs;
     }
 
-    public BatsmanDAO(Bowler bowler) {
+    public CricketLeagueDAO(Bowler bowler) {
         this.player= bowler.player;
         this.wickets=bowler.wickets;
         this.average=bowler.average;

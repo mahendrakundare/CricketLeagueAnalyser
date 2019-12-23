@@ -1,21 +1,13 @@
 package com.bridgelabz.cricketleague;
-import com.bridgelabz.csvbuilder.CSVBuilderException;
-import com.bridgelabz.csvbuilder.CSVBuilderFactory;
-import com.bridgelabz.csvbuilder.ICSVBuilder;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class CricketAnalyser {
     private StatisticCategory category;
     public enum StatisticCategory {BATTING, BOWLING }
-    Map<String, BatsmanDAO> batsmanMap=null;
+    Map<String, CricketLeagueDAO> batsmanMap=null;
 
     public CricketAnalyser() { }
 
@@ -35,7 +27,7 @@ public class CricketAnalyser {
     }
 
     public String getSortedData(SortingFields.fields... sortField) {
-        Comparator<BatsmanDAO>batsmanComparator=null;
+        Comparator<CricketLeagueDAO>batsmanComparator=null;
         if (sortField.length==2)
             batsmanComparator = SortingFields.getParameter(sortField[0]).thenComparing(SortingFields.getParameter(sortField[1]));
         else {
