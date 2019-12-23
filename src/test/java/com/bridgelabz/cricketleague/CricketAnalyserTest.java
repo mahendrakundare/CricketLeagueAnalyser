@@ -15,15 +15,16 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueDataCSVFile_ShouldReturnExactCount() throws CricketLeagueException {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
-        cricketAnalyser.readData(SAMPLE_FILE);
-        int result=cricketAnalyser.getNumberOfRecord();
-        Assert.assertEquals(10,result);
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
+        try {
+            int result = cricketAnalyser.readData(IPL2019_RUNS_CSV_FILE_PATH);
+            Assert.assertEquals(100,result);
+        } catch (CricketLeagueException e) { }
     }
 
     @Test
     public void givenLeagueCSVFile_IFIncorrect_ShouldThrowException() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(WRONG_FILE);
         } catch (CricketLeagueException e) {
@@ -33,7 +34,7 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVFile_IfFileISEmpty_ShouldThrowException() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(EMPTY_FILE);
         } catch (CricketLeagueException e) {
@@ -43,7 +44,7 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVFile_IfFileHasInvalidDelimeter_ShouldThrowError() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(FILE_WITH_DELIMETER_PROBLEM);
         } catch (CricketLeagueException e) {
@@ -53,7 +54,7 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVFile_IfFileHasInvalidHeader_ShouldThrowError() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(INVALID_HEADER_FILE);
         } catch (CricketLeagueException e) {
@@ -63,7 +64,7 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVFile_WhenSortedOnAverage_ShouldReturnSortedResult() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.AVERAGE);
@@ -74,7 +75,7 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVFile_WhenSortedOnStrikeRate_ShouldReturnSortedResult() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKERATE);
@@ -85,7 +86,7 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVFile_WhenSortedonFoursAndSixesShouldReturnSortedResult() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.BOUNDARIES);
@@ -96,7 +97,7 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVFile_WhenSortedOnFoursAndSixesBasedAlongWithStrike_ShouldRetrunSortedResult() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKE_WITH_BOUNDARY);
@@ -107,7 +108,7 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVFile_WhenSortedOnAverageWithBestStrikingRate_ShouldReturnSortedResult() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.AVERAGE, SortingFields.fields.STRIKERATE);
@@ -118,7 +119,7 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVFile_WhenSortedOnMaxRunWithBestAverage_ShouldReturnSortedResult() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
         try {
             cricketAnalyser.readData(SAMPLE_FILE);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.RUNS, SortingFields.fields.AVERAGE);
@@ -129,13 +130,51 @@ public class CricketAnalyserTest {
 
     @Test
     public void givenLeagueCSVBowlingFile_ShouldReturnExactCount() {
-        CricketAnalyser cricketAnalyser = new CricketAnalyser();
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BOWLING);
         try {
-            cricketAnalyser.readBowlingFile(IPL2019_WICKETES_CSV_FILE_PATH);
+            cricketAnalyser.readData(IPL2019_WICKETES_CSV_FILE_PATH);
             int result=cricketAnalyser.getNumberOfRecord();
             Assert.assertEquals(99,result);
-        } catch (CricketLeagueException e) {
-            Assert.assertEquals(e.type, CricketLeagueException.ExceptionType.FILE_PROBLEM);
-        }
+        } catch (CricketLeagueException e) { }
+    }
+
+    @Test
+    public void givenLeagueCSVBowlerFile_WhenSortedOnAverage_ShouldReturnSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BOWLING);
+        try {
+            cricketAnalyser.readData(IPL2019_WICKETES_CSV_FILE_PATH);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.AVERAGE);
+            Bowler[] bowlers = new Gson().fromJson(sortedData, Bowler[].class);
+            Assert.assertEquals("Yusuf Pathan",bowlers[98].player);
+        } catch (CricketLeagueException e) { }
+    }
+
+    @Test
+    public void givenLeagueCSVFile_ReturnExactCount() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
+        try {
+            int result = cricketAnalyser.readData(IPL2019_RUNS_CSV_FILE_PATH);
+            Assert.assertEquals(100,result);
+        } catch (CricketLeagueException e) { }
+    }
+
+    @Test
+    public void givenLeagueBowlerCSVFile_ReturnExactCount() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BOWLING);
+        try {
+            int result = cricketAnalyser.readData(IPL2019_WICKETES_CSV_FILE_PATH);
+            Assert.assertEquals(99,result);
+        } catch (CricketLeagueException e) { }
+    }
+
+    @Test
+    public void givenLeagueBowlerCSVFile_WhenSortedOnStrikeRates_ShouldReturnSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BOWLING);
+        try {
+            cricketAnalyser.readData(SAMPLE_BOWLER_FILE);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.STRIKERATE);
+            Bowler[] bowlers = new Gson().fromJson(sortedData, Bowler[].class);
+            Assert.assertEquals("Shreyas Gopal",bowlers[0].player);
+        } catch (CricketLeagueException e) { }
     }
 }

@@ -13,32 +13,21 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CricketAnalyser {
-    Map<String, BatsmanDAO> batsmanMap;
+    private StatisticCategory category;
+    public enum StatisticCategory {BATTING, BOWLING }
+    Map<String, BatsmanDAO> batsmanMap=null;
 
-    public CricketAnalyser() {
-        this.batsmanMap = new HashMap<>();
+    public CricketAnalyser() { }
+
+    public CricketAnalyser(StatisticCategory category) {
+        this.category= category;
     }
 
-    public Map readData(String csvFilePath) throws CricketLeagueException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<Batsman> csvFileterator = csvBuilder.getCSVFileIterator(reader, Batsman.class);
-            Iterable<Batsman> csvIterable = () -> csvFileterator;
-            StreamSupport.stream(csvIterable.spliterator(), false)
-                    .map(Batsman.class::cast)
-                    .forEach(batsmanRuns -> batsmanMap.put(batsmanRuns.player, new BatsmanDAO(batsmanRuns)));
-            return batsmanMap;
-        } catch (IOException e) {
-            throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.FILE_PROBLEM);
-        } catch (CSVBuilderException e) {
-            throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.UNABLE_TO_PARSE);
-        } catch (RuntimeException e) {
-            throw new CricketLeagueException(e.getMessage(),
-                    CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
-        }
+    public int readData(String csvFilePath) throws CricketLeagueException {
+        CricketLeagueAdapter cricketLeagueAdapter = CricketLeagueFactory.getClassObject(category);
+        batsmanMap = cricketLeagueAdapter.readData(csvFilePath);
+        return batsmanMap.size();
     }
-
-
 
     public int getNumberOfRecord() {
         int count;
@@ -58,25 +47,5 @@ public class CricketAnalyser {
                 collect(Collectors.toCollection(ArrayList::new));
         String sortedDataJson=new Gson().toJson(batsmanList);
         return sortedDataJson;
-    }
-
-    public Map readBowlingFile(String csvFilePath ) throws CricketLeagueException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<Bowler> csvFileterator = csvBuilder.getCSVFileIterator(reader, Bowler.class);
-            Iterable<Bowler> csvIterable = () -> csvFileterator;
-            StreamSupport.stream(csvIterable.spliterator(), false)
-                    .map(Bowler.class::cast)
-                    .forEach(bowler -> batsmanMap.put(bowler.player, new BatsmanDAO(bowler)));
-            return batsmanMap;
-        } catch (IOException e) {
-            throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.FILE_PROBLEM);
-        } catch (CSVBuilderException e) {
-            throw new CricketLeagueException(e.getMessage(), CricketLeagueException.ExceptionType.UNABLE_TO_PARSE);
-        } catch (RuntimeException e) {
-            throw new CricketLeagueException(e.getMessage(),
-                    CricketLeagueException.ExceptionType.DELIMITER_OR_HEADER_PROBLEM);
-        }
-
     }
 }

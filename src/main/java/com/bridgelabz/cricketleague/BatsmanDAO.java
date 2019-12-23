@@ -23,9 +23,13 @@ public class BatsmanDAO {
     public BatsmanDAO(Bowler bowler) {
         this.player= bowler.player;
         this.wickets=bowler.wickets;
+        this.average=bowler.average;
     }
 
     public Object getBatsmanDTO() {
         return new Batsman(player,average,strikeRate,sixes,fours,ballFaced,runs);
     }
 }
+
+
+//this.bowlingAverage =iplmap.average.contains("-")?0:Double.parseDouble(iplmap.average);

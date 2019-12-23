@@ -53,10 +53,12 @@ public class Bowler {
     public Bowler(Bowler bowler) {
         this.player= bowler.player;
         this.wickets= bowler.wickets;
+        this.average=bowler.average;
     }
 
-    public Bowler(String player, int wickets) {
+    public Bowler(String player, int wickets,double average) {
         this.player = player;
         this.wickets = wickets;
+        this.average=average;
     }
 }
