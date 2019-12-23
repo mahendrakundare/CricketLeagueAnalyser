@@ -12,6 +12,7 @@ public class CricketLeagueDAO {
     public double economy;
     public int fiveWickets;
     public int fourWickets;
+    public double bowlingAverage;
 
     public CricketLeagueDAO(Batsman batsmanRuns) {
         this.player=batsmanRuns.player;
@@ -26,7 +27,7 @@ public class CricketLeagueDAO {
     public CricketLeagueDAO(Bowler bowler) {
         this.player= bowler.player;
         this.wickets=bowler.wickets;
-        this.average=bowler.average;
+        this.bowlingAverage=bowler.average;
         this.economy = bowler.economy;
         this.fiveWickets = bowler.fiveWickets;
         this.fourWickets = bowler.fourWickets;
@@ -36,9 +37,6 @@ public class CricketLeagueDAO {
     public Object getBatsmanDTO(CricketAnalyser.StatisticCategory category) {
         if (category.equals(CricketAnalyser.StatisticCategory.BATTING))
             return new Batsman(player,average,strikeRate,sixes,fours,ballFaced,runs);
-        return new Bowler(player,wickets,average,economy,fiveWickets,fourWickets,strikeRate);
+        return new Bowler(player,wickets,bowlingAverage,economy,fiveWickets,fourWickets,strikeRate);
     }
 }
-
-
-//this.bowlingAverage =iplmap.average.contains("-")?0:Double.parseDouble(iplmap.average);

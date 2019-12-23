@@ -7,7 +7,7 @@ public class SortingFields {
 
     static Map<fields, Comparator> sortByFields = new HashMap<>();
 
-    enum fields { AVERAGE,STRIKERATE,BOUNDARIES,RUNS, ECONOMY, FIVE_WICKETS, FOUR_WICKETS, STRIKE_WITH_BOUNDARY, AVERAGE_WITH_STRIKERATE, MAXIMUM_WICKET_WITH_AVERAGE, STRIKERATE_WITH_FIVE_AND_FOUR_WICKETS }
+    enum fields { AVERAGE,STRIKERATE,BOUNDARIES,RUNS, ECONOMY, FIVE_WICKETS, FOUR_WICKETS, STRIKE_WITH_BOUNDARY, AVERAGE_WITH_STRIKERATE, MAXIMUM_WICKET_WITH_AVERAGE, BATTING_AND_BOWLING_AVG, STRIKERATE_WITH_FIVE_AND_FOUR_WICKETS }
 
     public static Comparator getParameter(SortingFields.fields parameter) {
         Comparator<CricketLeagueDAO> avgComparator = Comparator.comparing(batsmanRun -> batsmanRun.average, Comparator.reverseOrder());
@@ -29,6 +29,7 @@ public class SortingFields {
         sortByFields.put(fields.STRIKERATE_WITH_FIVE_AND_FOUR_WICKETS,fiveWickets4WicketsComparator.thenComparing(bowlerStrikerateComparator));
         sortByFields.put(fields.AVERAGE_WITH_STRIKERATE,avgComparator.thenComparing(bowlerStrikerateComparator));
         sortByFields.put(fields.MAXIMUM_WICKET_WITH_AVERAGE,wickets.thenComparing(bowlingAverage));
+        sortByFields.put(fields.BATTING_AND_BOWLING_AVG,avgComparator.thenComparing(bowlingAverage));
         Comparator<CricketLeagueDAO> comparator = sortByFields.get(parameter);
         return comparator;
     }

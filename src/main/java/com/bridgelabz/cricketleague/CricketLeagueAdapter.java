@@ -14,10 +14,10 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 public abstract class CricketLeagueAdapter {
+    Map<String, CricketLeagueDAO> statisticsMap = new HashMap();
     public abstract Map<String, CricketLeagueDAO> readData(String... csvFilePath) throws CricketLeagueException;
 
     public <E> Map readData(Class<E> censusCSVClass, String... csvFilePath) throws CricketLeagueException {
-        Map<String, CricketLeagueDAO> statisticsMap = new HashMap();
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath[0]))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<E> csvFileIterator = csvBuilder.getCSVFileIterator(reader, censusCSVClass);

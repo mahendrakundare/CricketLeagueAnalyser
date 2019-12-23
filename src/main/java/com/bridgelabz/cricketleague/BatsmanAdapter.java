@@ -1,5 +1,4 @@
 package com.bridgelabz.cricketleague;
-
 import java.util.Map;
 
 public class BatsmanAdapter extends CricketLeagueAdapter {

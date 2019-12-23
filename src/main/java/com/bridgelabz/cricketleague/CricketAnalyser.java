@@ -15,7 +15,7 @@ public class CricketAnalyser {
         this.category= category;
     }
 
-    public int readData(String csvFilePath) throws CricketLeagueException {
+    public int readData(String... csvFilePath) throws CricketLeagueException {
         CricketLeagueAdapter cricketLeagueAdapter = CricketLeagueFactory.getClassObject(category);
         batsmanMap = cricketLeagueAdapter.readData(csvFilePath);
         return batsmanMap.size();

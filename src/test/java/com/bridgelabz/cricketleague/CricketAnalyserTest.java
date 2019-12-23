@@ -221,4 +221,19 @@ public class CricketAnalyserTest {
             Assert.assertEquals("Imran Tahir",cricketLeagueDAOS[0].player);
         } catch (CricketLeagueException e) { }
     }
+
+    @Test
+    public void givenLeagueBowlerAndBatsmanCSVFile_WhenSortedOnAverage_ShouldReturnSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BOWLING);
+        try {
+            cricketAnalyser.readData(IPL2019_WICKETES_CSV_FILE_PATH,IPL2019_RUNS_CSV_FILE_PATH );
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.BATTING_AND_BOWLING_AVG);
+            CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
+            Assert.assertEquals("Andre Russell",cricketLeagueDAOS[0].player);
+        } catch (CricketLeagueException e) { }
+    }
+
 }
+
+
+
