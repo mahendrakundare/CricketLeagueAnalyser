@@ -7,7 +7,7 @@ public class SortingFields {
 
     static Map<fields, Comparator> sortByFields = new HashMap<>();
 
-    enum fields { AVERAGE,STRIKERATE,BOUNDARIES,RUNS, ECONOMY, FIVE_WICKETS, FOUR_WICKETS, STRIKE_WITH_BOUNDARY, AVERAGE_WITH_STRIKERATE, STRIKERATE_WITH_FIVE_AND_FOUR_WICKETS }
+    enum fields { AVERAGE,STRIKERATE,BOUNDARIES,RUNS, ECONOMY, FIVE_WICKETS, FOUR_WICKETS, STRIKE_WITH_BOUNDARY, AVERAGE_WITH_STRIKERATE, MAXIMUM_WICKET_WITH_AVERAGE, STRIKERATE_WITH_FIVE_AND_FOUR_WICKETS }
 
     public static Comparator getParameter(SortingFields.fields parameter) {
         Comparator<CricketLeagueDAO> avgComparator = Comparator.comparing(batsmanRun -> batsmanRun.average, Comparator.reverseOrder());
@@ -18,7 +18,8 @@ public class SortingFields {
         Comparator<CricketLeagueDAO>bowlerStrikerateComparator= Comparator.comparing(bowler -> bowler.strikeRate);
         Comparator<CricketLeagueDAO>economyComparator= Comparator.comparing(bowler -> bowler.economy);
         Comparator<CricketLeagueDAO>fiveWickets4WicketsComparator = Comparator.comparing(bowler -> bowler.fiveWickets+bowler.fourWickets,Comparator.reverseOrder());
-//        Comparator<CricketLeagueDAO>averageWithStrikeComparator= Comparator.comparing(bowler -> bowler.average);
+        Comparator<CricketLeagueDAO>wickets = Comparator.comparing(bowler -> bowler.wickets,Comparator.reverseOrder());
+        Comparator<CricketLeagueDAO>bowlingAverage = Comparator.comparing(bowler -> bowler.average);
         sortByFields.put(fields.AVERAGE, avgComparator);
         sortByFields.put(fields.STRIKERATE,strikeRateComparator);
         sortByFields.put(fields.BOUNDARIES,boundariesComparator);
@@ -27,6 +28,7 @@ public class SortingFields {
         sortByFields.put(fields.ECONOMY,economyComparator);
         sortByFields.put(fields.STRIKERATE_WITH_FIVE_AND_FOUR_WICKETS,fiveWickets4WicketsComparator.thenComparing(bowlerStrikerateComparator));
         sortByFields.put(fields.AVERAGE_WITH_STRIKERATE,avgComparator.thenComparing(bowlerStrikerateComparator));
+        sortByFields.put(fields.MAXIMUM_WICKET_WITH_AVERAGE,wickets.thenComparing(bowlingAverage));
         Comparator<CricketLeagueDAO> comparator = sortByFields.get(parameter);
         return comparator;
     }

@@ -201,13 +201,24 @@ public class CricketAnalyserTest {
     }
 
     @Test
-    public void givenLeagueBowlerCSVFile_WhenSortedOnWithStrikeRate_ShouldReturnSortedResult() {
+    public void givenLeagueBowlerCSVFile_WhenSortedOnAverageWithStrikeRate_ShouldReturnSortedResult() {
         CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BOWLING);
         try {
             cricketAnalyser.readData(IPL2019_WICKETES_CSV_FILE_PATH);
             String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.AVERAGE_WITH_STRIKERATE);
             CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
             Assert.assertEquals("Yusuf Pathan",cricketLeagueDAOS[98].player);
+        } catch (CricketLeagueException e) { }
+    }
+
+    @Test
+    public void givenLeagueBowlerCSVFile_WhenSortedOnMaximumWicketsWithStrikerate_ShouldReturnSortedResult() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BOWLING);
+        try {
+            cricketAnalyser.readData(IPL2019_WICKETES_CSV_FILE_PATH);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.MAXIMUM_WICKET_WITH_AVERAGE);
+            CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
+            Assert.assertEquals("Imran Tahir",cricketLeagueDAOS[0].player);
         } catch (CricketLeagueException e) { }
     }
 }
