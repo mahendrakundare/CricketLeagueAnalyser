@@ -2,7 +2,6 @@ package com.bridgelabz.cricketleague;
 
 public class CricketLeagueDAO {
 
-
     public String player;
     public double average;
     public double strikeRate;
@@ -36,9 +35,7 @@ public class CricketLeagueDAO {
         this.strikeRate = bowler.strikeRate;
     }
 
-    public CricketLeagueDAO() {
-
-    }
+    public CricketLeagueDAO() { }
 
     public Object getBatsmanDTO(CricketAnalyser.StatisticCategory category) {
         if (category.equals(CricketAnalyser.StatisticCategory.BATTING))

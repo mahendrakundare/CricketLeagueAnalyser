@@ -1,8 +1,6 @@
 package com.bridgelabz.cricketleague;
-
 import com.opencsv.bean.CsvBindByName;
 
-//POS,PLAYER,Mat,Inns,Ov,Runs,Wkts,BBI,Avg,Econ,SR,4w,5w,
 public class Bowler {
 
     @CsvBindByName(column = "POS")
@@ -43,7 +41,6 @@ public class Bowler {
 
     @CsvBindByName(column = "5w")
     public int fiveWickets;
-
 
     public Bowler() { }
 
