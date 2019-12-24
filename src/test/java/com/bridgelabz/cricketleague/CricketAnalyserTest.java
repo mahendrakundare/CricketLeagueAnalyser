@@ -233,6 +233,16 @@ public class CricketAnalyserTest {
         } catch (CricketLeagueException e) { }
     }
 
+    @Test
+    public void givenLeagueBowlerAndBatsmanCSVFile_WhenSortedonMostRunAndWickets() {
+        CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.StatisticCategory.BATTING);
+        try {
+            cricketAnalyser.readData(IPL2019_RUNS_CSV_FILE_PATH,IPL2019_WICKETES_CSV_FILE_PATH);
+            String sortedData = cricketAnalyser.getSortedData(SortingFields.fields.RUNS_WICKETS);
+            CricketLeagueDAO[] cricketLeagueDAOS = new Gson().fromJson(sortedData, CricketLeagueDAO[].class);
+            Assert.assertEquals("Hardik Pandya",cricketLeagueDAOS[0].player);
+        } catch (CricketLeagueException e) { }
+    }
 }
 
 

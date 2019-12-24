@@ -44,6 +44,7 @@ public class Bowler {
     @CsvBindByName(column = "5w")
     public int fiveWickets;
 
+
     public Bowler() { }
 
     public Bowler(Bowler bowler) {

@@ -44,6 +44,8 @@ public class Batsman {
     @CsvBindByName(column = "6s")
     public int sixes;
 
+    public int wicketTaken;
+
     public Batsman() { }
 
     public Batsman(Batsman batsman) {
