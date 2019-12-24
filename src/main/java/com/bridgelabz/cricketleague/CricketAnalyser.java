@@ -5,6 +5,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CricketAnalyser {
+
+    private CricketLeagueAdapter cricketLeagueAdapter;
     private StatisticCategory category;
     public enum StatisticCategory {BATTING, BOWLING }
     Map<String, CricketLeagueDAO> batsmanMap=null;
@@ -19,6 +21,10 @@ public class CricketAnalyser {
         CricketLeagueAdapter cricketLeagueAdapter = CricketLeagueFactory.getClassObject(category);
         batsmanMap = cricketLeagueAdapter.readData(csvFilePath);
         return batsmanMap.size();
+    }
+
+    public void setCricketLeagueAdapter(CricketLeagueAdapter adapter) {
+        this.cricketLeagueAdapter = adapter;
     }
 
     public int getNumberOfRecord() {

@@ -1,6 +1,8 @@
 package com.bridgelabz.cricketleague;
 
 public class CricketLeagueDAO {
+
+
     public String player;
     public double average;
     public double strikeRate;
@@ -32,6 +34,10 @@ public class CricketLeagueDAO {
         this.fiveWickets = bowler.fiveWickets;
         this.fourWickets = bowler.fourWickets;
         this.strikeRate = bowler.strikeRate;
+    }
+
+    public CricketLeagueDAO() {
+
     }
 
     public Object getBatsmanDTO(CricketAnalyser.StatisticCategory category) {
