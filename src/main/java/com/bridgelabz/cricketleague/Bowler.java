@@ -44,12 +44,6 @@ public class Bowler {
 
     public Bowler() { }
 
-    public Bowler(Bowler bowler) {
-        this.player= bowler.player;
-        this.wickets= bowler.wickets;
-        this.average=bowler.average;
-    }
-
     public Bowler(String player, int wickets, double average, double economy, int fiveWickets, int fourWickets, double strikeRate) {
         this.player = player;
         this.wickets = wickets;

@@ -37,6 +37,16 @@ public class CricketLeagueDAO {
 
     public CricketLeagueDAO() { }
 
+    public CricketLeagueDAO(int position, String player, int mat, int innings, int no, int runs, double average, int ballFaced, double strikeRate, int century, int halfcentury, int fours, int sixes) {
+        this.player = player;
+        this.runs = runs;
+        this.average = average;
+        this.ballFaced = ballFaced;
+        this.strikeRate =strikeRate;
+        this.fours=fours;
+        this.sixes=sixes;
+    }
+
     public Object getBatsmanDTO(CricketAnalyser.StatisticCategory category) {
         if (category.equals(CricketAnalyser.StatisticCategory.BATTING))
             return new Batsman(player,average,strikeRate,sixes,fours,ballFaced,runs);

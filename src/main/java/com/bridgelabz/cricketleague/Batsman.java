@@ -44,19 +44,7 @@ public class Batsman {
     @CsvBindByName(column = "6s")
     public int sixes;
 
-    public int wicketTaken;
-
     public Batsman() { }
-
-    public Batsman(Batsman batsman) {
-        this.player=batsman.player;
-        this.average=batsman.average;
-        this.strikeRate=batsman.strikeRate;
-        this.fours=batsman.fours;
-        this.sixes=batsman.sixes;
-        this.ballFaced=batsman.ballFaced;
-        this.runs=batsman.runs;
-    }
 
     public Batsman(String player, double average, double strikeRate, int fours, int sixes, int ballFaced,int runs) {
         this.player=player;
